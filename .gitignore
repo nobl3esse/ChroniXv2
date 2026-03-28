@@ -29,7 +29,7 @@ coverage
 # node-waf configuration
 .lock-wscript
 
-# Compiled binary addons (https://nodejs.org/api/addons.html)
+# Compiled binary addons
 build/Release
 
 # Dependency directories
@@ -61,7 +61,7 @@ typings/
 .env
 .env.test
 
-# parcel-bundler cache (https://parceljs.org/)
+# parcel-bundler cache
 .cache
 
 # next.js build output
@@ -90,3 +90,96 @@ typings/
 
 # Electron-Forge
 out/
+
+# =========================
+# Visual Studio / .NET / C#
+# =========================
+
+# Build results
+bin/
+obj/
+[Bb]uild/
+[Rr]elease/
+[Dd]ebug/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Visual Studio cache / temp
+.vs/
+*.cache
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+*.VC.VC.opendb
+
+# Test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.trx
+*.coverage
+*.coveragexml
+
+# NuGet
+packages/
+!packages/build/
+*.nupkg
+*.snupkg
+.nuget.props
+.nuget.targets
+
+# .NET Core / publish
+publish/
+artifacts/
+
+# ASP.NET / local config
+appsettings.Development.json
+secrets.json
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# VS Code
+.vscode/
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# SQL Server / LocalDB
+*.mdf
+*.ldf
+
+# Windows installer / deployment artifacts
+*.msi
+*.msix
+*.msixbundle
+*.appx
+*.appxbundle
+
+# Generated files
+Generated\ Files/
+*.g.cs
+*.g.i.cs
+
+# IIS Express
+iisexpress/
+
+# Azure / publish profiles
+*.pubxml
+*.publishsettings
+
+# OS files
+Thumbs.db
+desktop.ini
