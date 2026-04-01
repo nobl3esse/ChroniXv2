@@ -1,8 +1,113 @@
-body {
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
-    sans-serif;
-  margin: auto;
-  max-width: 38rem;
-  padding: 2rem;
+/* ================ GLOBAL SETTINGS ================ */
+
+::selection {
+  text-shadow: none;
+  color: #fff;
+  background-color: #00f;
 }
+
+html {
+  font-size: 100%;
+  box-sizing: border-box;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+  display: block;
+  user-select: none;
+}
+
+button {
+  color: inherit;
+  font: inherit;
+}
+
+a,
+button {
+  touch-action: manipulation;
+}
+
+svg {
+  height: 100%;
+  width: 100%;
+  fill: currentColor;
+  pointer-events: none;
+}
+
+iframe,
+video {
+  height: 100%;
+  width: 100%;
+}
+
+/* ================ GLOBAL SETTINGS ================ */
+
+/* ================ CUSTOM TITLEBAR ================ */
+
+.custom-titlebar {
+  width: 100%;
+  height: 30px;
+  background-color: #a8a8a8;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  user-select: none;
+  app-region: drag;
+}
+
+/* .window-btn {
+  width: 46px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #3a3a3a;
+  cursor: pointer;
+  flex: 0 0 auto;
+
+  app-region: no-drag;
+}
+
+.window-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.window-btn.close:hover {
+  background: #e81123;
+  color: #ffffff;
+}
+
+.window-icon {
+  width: 16px;
+  height: 16px;
+  display: block;
+  flex: 0 0 auto;
+} */
+
+/* ================ CUSTOM TITLEBAR ================ */

@@ -1,23 +1,35 @@
-const { app, BrowserWindow } = require('electron');
-const path = require('node:path');
+const { app, BrowserWindow, Menu, Tray, nativeImage } = require("electron");
+const path = require("node:path");
+
+let tray;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require('electron-squirrel-startup')) {
+if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
 const createWindow = () => {
+  // For image paths use path.join
+  const iconPath = path.join(__dirname, "../assets/icons/hourglass.ico");
+  const appIcon = nativeImage.createFromPath(iconPath);
   // Create the browser window.
   const mainWindow = new BrowserWindow({
+    icon: appIcon,
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, "preload.js"),
+    },
+    titleBarStyle: "hidden",
+    titleBarOverlay: {
+      color: "#a8a8a8",
+      symbolColor: "#fff",
+      height: 30,
     },
   });
 
   // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, 'index.html'));
+  mainWindow.loadFile(path.join(__dirname, "index.html"));
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
@@ -29,9 +41,21 @@ const createWindow = () => {
 app.whenReady().then(() => {
   createWindow();
 
+  const tryIconPath = path.join(__dirname, "../assets/icons/hourglass.ico");
+  tray = new Tray(tryIconPath);
+  const contextMenu = Menu.buildFromTemplate([
+    { label: "Item1", type: "radio" },
+    { label: "Item2", type: "radio" },
+    { label: "Item3", type: "radio", checked: true },
+    { label: "Item4", type: "radio" },
+  ]);
+
+  tray.setToolTip("This is my application.");
+  tray.setContextMenu(contextMenu);
+
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
-  app.on('activate', () => {
+  app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow();
     }
@@ -41,8 +65,8 @@ app.whenReady().then(() => {
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
     app.quit();
   }
 });
