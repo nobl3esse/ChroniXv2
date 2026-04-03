@@ -22,9 +22,9 @@ const createWindow = () => {
     },
     titleBarStyle: "hidden",
     titleBarOverlay: {
-      color: "#a8a8a8",
+      color: "#2c2d32",
       symbolColor: "#fff",
-      height: 30,
+      height: 40,
     },
   });
 
