@@ -1,60 +1,126 @@
 const { app, BrowserWindow, Menu, Tray, nativeImage } = require("electron");
 const path = require("node:path");
+const fs = require("fs");
 
 let tray;
+let mainWindow;
+let watchers = [];
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
-const createWindow = () => {
-  // For image paths use path.join
+function createWindow() {
   const iconPath = path.join(__dirname, "../assets/icons/hourglass.ico");
   const appIcon = nativeImage.createFromPath(iconPath);
-  // Create the browser window.
-  const mainWindow = new BrowserWindow({
+
+  mainWindow = new BrowserWindow({
     icon: appIcon,
     width: 800,
     height: 600,
-    webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
-    },
+    resizable: false,
     titleBarStyle: "hidden",
     titleBarOverlay: {
       color: "#2c2d32",
       symbolColor: "#fff",
-      height: 40,
+      height: 30,
+    },
+    webPreferences: {
+      preload: path.join(__dirname, "preload.js"),
+      contextIsolation: true,
+      nodeIntegration: false,
     },
   });
 
-  // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, "index.html"));
-
-  // Open the DevTools.
   mainWindow.webContents.openDevTools();
-};
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
+  mainWindow.on("closed", () => {
+    mainWindow = null;
+  });
+}
+
+function reloadWindow() {
+  if (mainWindow && !mainWindow.isDestroyed()) {
+    mainWindow.webContents.reload();
+  }
+}
+
+function setupWatchers() {
+  const filesToWatch = [
+    path.join(__dirname, "index.html"),
+    path.join(__dirname, "index.css"),
+    path.join(__dirname, "index.js"),
+    path.join(__dirname, "renderer.js"),
+  ];
+
+  for (const watcher of watchers) {
+    watcher.close();
+  }
+
+  watchers = [];
+
+  for (const file of filesToWatch) {
+    try {
+      const watcher = fs.watch(file, (eventType) => {
+        if (eventType === "change") {
+          reloadWindow();
+        }
+      });
+
+      watchers.push(watcher);
+    } catch (error) {
+      console.error(`Watcher konnte nicht gestartet werden: ${file}`, error);
+    }
+  }
+}
+
 app.whenReady().then(() => {
   createWindow();
+  setupWatchers();
 
-  const tryIconPath = path.join(__dirname, "../assets/icons/hourglass.ico");
-  tray = new Tray(tryIconPath);
+  const trayIconPath = path.join(__dirname, "../assets/icons/hourglass.ico");
+  tray = new Tray(trayIconPath);
+
   const contextMenu = Menu.buildFromTemplate([
-    { label: "Item1", type: "radio" },
-    { label: "Item2", type: "radio" },
-    { label: "Item3", type: "radio", checked: true },
-    { label: "Item4", type: "radio" },
+    {
+      label: "Fenster zeigen",
+      click: () => {
+        if (!mainWindow || mainWindow.isDestroyed()) {
+          createWindow();
+        } else {
+          mainWindow.show();
+          mainWindow.focus();
+        }
+      },
+    },
+    {
+      label: "Neu laden",
+      click: () => {
+        reloadWindow();
+      },
+    },
+    { type: "separator" },
+    {
+      label: "Beenden",
+      click: () => {
+        app.quit();
+      },
+    },
   ]);
 
-  tray.setToolTip("This is my application.");
+  tray.setToolTip("ChroniX");
   tray.setContextMenu(contextMenu);
 
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
+  tray.on("double-click", () => {
+    if (!mainWindow || mainWindow.isDestroyed()) {
+      createWindow();
+    } else {
+      mainWindow.show();
+      mainWindow.focus();
+    }
+  });
+
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow();
@@ -62,14 +128,14 @@ app.whenReady().then(() => {
   });
 });
 
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
+app.on("before-quit", () => {
+  for (const watcher of watchers) {
+    watcher.close();
+  }
+});
+
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
   }
 });
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
