@@ -50,7 +50,6 @@ function setupWatchers() {
   const filesToWatch = [
     path.join(__dirname, "index.html"),
     path.join(__dirname, "index.css"),
-    path.join(__dirname, "index.js"),
     path.join(__dirname, "renderer.js"),
   ];
 
