@@ -93,12 +93,12 @@ app.whenReady().then(() => {
         }
       },
     },
-    {
-      label: "Neu laden",
-      click: () => {
-        reloadWindow();
-      },
-    },
+    // {
+    //   label: "Neu laden",
+    //   click: () => {
+    //     reloadWindow();
+    //   },
+    // },
     { type: "separator" },
     {
       label: "Beenden",

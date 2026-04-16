@@ -6,12 +6,14 @@
 
     <link rel="stylesheet" href="index.css" />
     <script src="renderer.js" defer></script>
+    <script src="../src/scripts/main.js" defer></script>
 
     <title>ChroniX</title>
   </head>
   <body>
     <div class="grid-container">
       <div class="custom-titlebar">
+        <img src="../assets/images/ChroniX_neu_w_2.png" alt="Chronix Logo" />
         <!-- <button
           class="window-btn minimize"
           type="button"
@@ -44,11 +46,14 @@
 
       <div class="menu-left">
         <ul>
-          <li>
+          <!-- <li>
             <button type="button">Dienststatus</button>
+          </li> -->
+          <li>
+            <button id="trackingBtn" type="button">Tracking an/aus</button>
           </li>
           <li>
-            <button type="button">Tracking an/aus</button>
+            <button id="statusBtn" type="button">Status laden</button>
           </li>
           <li>
             <button type="button">Intervall</button>
@@ -68,7 +73,10 @@
         </ul>
       </div>
 
-      <div class="settings-container">SETTINGS-CONTAINER</div>
+      <div class="settings-container">
+        <h1>SETTINGS-CONTAINER / ANZEIGEFLÄCHE</h1>
+        <pre id="output"></pre>
+      </div>
     </div>
   </body>
 </html>
