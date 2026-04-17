@@ -1,0 +1,35 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "apps", "apps", "{1787FE1D-075E-9E68-7218-25F1BD1BBEAB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "backend", "backend", "{270F7A58-C097-D64B-0343-582534E94D4F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{9376D6D4-1103-5100-A242-86BA22C9A71D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChroniXApi", "apps\backend\api\ChroniXApi\ChroniXApi.csproj", "{2A002CEC-06E1-74CB-D5ED-4417A86DC84D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A002CEC-06E1-74CB-D5ED-4417A86DC84D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A002CEC-06E1-74CB-D5ED-4417A86DC84D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A002CEC-06E1-74CB-D5ED-4417A86DC84D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A002CEC-06E1-74CB-D5ED-4417A86DC84D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{270F7A58-C097-D64B-0343-582534E94D4F} = {1787FE1D-075E-9E68-7218-25F1BD1BBEAB}
+		{9376D6D4-1103-5100-A242-86BA22C9A71D} = {270F7A58-C097-D64B-0343-582534E94D4F}
+		{2A002CEC-06E1-74CB-D5ED-4417A86DC84D} = {9376D6D4-1103-5100-A242-86BA22C9A71D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AC6BBD2B-0DD0-4C02-9822-29F7560652EA}
+	EndGlobalSection
+EndGlobal
