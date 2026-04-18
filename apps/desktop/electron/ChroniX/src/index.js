@@ -29,6 +29,36 @@ ipcMain.handle("get-status", async () => {
   }
 });
 
+ipcMain.handle("get-foreground", async () => {
+  try {
+    const response = await fetch("http://localhost:5000/foreground");
+    const data = response.json();
+    return data;
+  } catch (error) {
+    return { error: "C# API nicht erreichbar" };
+  }
+});
+
+ipcMain.handle("start-tracking", async () => {
+  try {
+    const response = await fetch("http://localhost:5000/start");
+    const data = response.json();
+    return data;
+  } catch (error) {
+    return { error: "C# API nicht erreichbar" };
+  }
+});
+
+ipcMain.handle("get-times", async () => {
+  try {
+    const response = await fetch("http://localhost:5000/times");
+    const data = response.json();
+    return data;
+  } catch (error) {
+    return { error: "C# API nicht erreichbar" };
+  }
+});
+
 let tray;
 let mainWindow;
 let watchers = [];

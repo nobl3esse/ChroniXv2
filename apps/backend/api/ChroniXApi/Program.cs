@@ -1,5 +1,8 @@
 using ChroniXApi.Services;
 
+//Erstellen eines Singleton damit ForegroundService() nur einmal erstellt wird
+var foregroundService = new ForegroundService();
+
 var builder = WebApplication.CreateBuilder(args);
 // CORS erlauben damit Electron zugreifen darf
 builder.Services.AddCors(options =>
@@ -24,6 +27,21 @@ app.MapGet("/processes", () =>
 app.MapGet("/status", () =>
 {
     return new { success = true, message = "running " };
+});
+
+app.MapGet("/foreground", () =>
+{
+    return foregroundService.GetForegroundWindowProcessName();
+});
+
+app.MapGet("/start", () =>
+{
+    foregroundService.StartTracking();
+});
+
+app.MapGet("/times", () =>
+{
+    return foregroundService.GetProcessTimes();
 });
 
 app.Run("http://localhost:5000");
