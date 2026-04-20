@@ -1,10 +1,21 @@
+using System.Data.Common;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
 
 namespace ChroniXApi.Services
 {
     public class ForegroundService
     {
+        DatabaseService db = new DatabaseService();
+
+        //Wird automatisch bei new ForegroundService() aufgerufen
+        public ForegroundService()
+        {
+            db.Initialize();
+            processTime = db.LoadTimes();
+        }
+
         Dictionary<string, int> processTime = new Dictionary<string, int>();
         private Timer? _timer;
 
@@ -31,11 +42,15 @@ namespace ChroniXApi.Services
 
         public void StartTracking()
         {
-            _timer = new Timer(TrackTime, null, 0, 1000);
+            _timer = new Timer(TrackTime, null, 0, 5000);
         }
 
         public void StopTracking()
         {
+            foreach (var entry in processTime)
+            {
+                db.SaveTime(entry.Key, entry.Value);
+            }
             _timer?.Dispose();
         }
 
@@ -47,7 +62,7 @@ namespace ChroniXApi.Services
 
             if (processTime.ContainsKey(processName))
             {
-                processTime[processName] += 1;
+                processTime[processName] += 5;
             }
             else
             {

@@ -49,6 +49,16 @@ ipcMain.handle("start-tracking", async () => {
   }
 });
 
+ipcMain.handle("stop-tracking", async () => {
+  try {
+    const response = await fetch("http://localhost:5000/stop");
+    const message = "Tracking gestoppt.";
+    return message;
+  } catch (error) {
+    return { error: "C# API nicht erreichbar" };
+  }
+});
+
 ipcMain.handle("get-times", async () => {
   try {
     const response = await fetch("http://localhost:5000/times");

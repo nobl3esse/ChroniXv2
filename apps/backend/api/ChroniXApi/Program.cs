@@ -39,6 +39,11 @@ app.MapGet("/start", () =>
     foregroundService.StartTracking();
 });
 
+app.MapGet("/stop", () =>
+{
+    foregroundService.StopTracking();
+});
+
 app.MapGet("/times", () =>
 {
     return foregroundService.GetProcessTimes();

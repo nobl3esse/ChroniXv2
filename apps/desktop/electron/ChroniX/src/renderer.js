@@ -2,6 +2,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const processes = await window.api.getProcesses();
   console.log(processes);
 
+  //Variablen
+  let isTracking = false;
+
   //Buttons holen
   const servConBtn = document.getElementById("servConBtn");
   const toggleTrackingBtn = document.getElementById("toggleTrackingBtn");
@@ -15,8 +18,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   toggleTrackingBtn.addEventListener("click", async () => {
-    const start = await window.api.startTracking();
-    pre.textContent = JSON.stringify(start);
+    if (isTracking) {
+      const stop = await window.api.stopTracking();
+      pre.textContent = JSON.stringify(stop);
+    } else {
+      const start = await window.api.startTracking();
+      pre.textContent = JSON.stringify(start);
+    }
+
+    //wenn true auf false setzen, wenn false auf true setzen
+    isTracking = !isTracking;
   });
 
   testBtn.addEventListener("click", async () => {

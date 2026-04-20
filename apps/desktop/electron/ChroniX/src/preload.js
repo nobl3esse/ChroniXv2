@@ -5,5 +5,6 @@ contextBridge.exposeInMainWorld("api", {
   getStatus: () => ipcRenderer.invoke("get-status"),
   getForeground: () => ipcRenderer.invoke("get-foreground"),
   startTracking: () => ipcRenderer.invoke("start-tracking"),
+  stopTracking: () => ipcRenderer.invoke("stop-tracking"),
   getTimes: () => ipcRenderer.invoke("get-times"),
 });
