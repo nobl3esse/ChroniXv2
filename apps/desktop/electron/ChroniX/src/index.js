@@ -86,6 +86,7 @@ function createWindow() {
     width: 800,
     height: 600,
     resizable: false,
+    title: "ChroniX",
     titleBarStyle: "hidden",
     titleBarOverlay: {
       color: "#2c2d32",

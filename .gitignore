@@ -183,3 +183,6 @@ iisexpress/
 # OS files
 Thumbs.db
 desktop.ini
+
+# DB
+ *.db
