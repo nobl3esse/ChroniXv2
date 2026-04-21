@@ -69,6 +69,15 @@ ipcMain.handle("get-times", async () => {
   }
 });
 
+ipcMain.handle("get-whitelist", async () => {
+  try {
+    const response = await fetch("http://localhost:5000/whitelist");
+    const data = await response.json();
+  } catch (error) {
+    return { error: "C# API nicht erreichbar" };
+  }
+});
+
 let tray;
 let mainWindow;
 let watchers = [];

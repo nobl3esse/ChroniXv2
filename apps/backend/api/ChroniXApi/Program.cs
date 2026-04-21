@@ -1,7 +1,11 @@
+using System.Net.WebSockets;
 using ChroniXApi.Services;
 
+var whitelistService = new WhitelistService();
+whitelistService.LoadWhitelist();
+
 //Erstellen eines Singleton damit ForegroundService() nur einmal erstellt wird
-var foregroundService = new ForegroundService();
+var foregroundService = new ForegroundService(whitelistService);
 
 var builder = WebApplication.CreateBuilder(args);
 // CORS erlauben damit Electron zugreifen darf
@@ -49,4 +53,21 @@ app.MapGet("/times", () =>
     return foregroundService.GetProcessTimes();
 });
 
+app.MapGet("/whitelist", () =>
+{
+    return whitelistService.GetAll();
+});
+
+app.MapPost("/whitelist", (WhitelistInput input) =>
+{
+    whitelistService.Add(input.ProcessName);
+});
+
+app.MapDelete("/whitelist", (string name) =>
+{
+    whitelistService.Remove(name);
+});
+
 app.Run("http://localhost:5000");
+
+record WhitelistInput(string ProcessName);

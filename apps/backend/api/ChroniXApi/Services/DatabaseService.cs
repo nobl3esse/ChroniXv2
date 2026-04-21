@@ -1,6 +1,5 @@
 using Microsoft.Data.Sqlite;
 
-
 namespace ChroniXApi.Services
 {
     public class DatabaseService

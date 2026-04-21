@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const servConBtn = document.getElementById("servConBtn");
   const toggleTrackingBtn = document.getElementById("toggleTrackingBtn");
   const testBtn = document.getElementById("testBtn");
+  const whitelistBtn = document.getElementById("whitelistBtn");
 
   const pre = document.getElementById("pre");
 
@@ -51,5 +52,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         "\n";
     });
     pre.textContent = result;
+  });
+
+  whitelistBtn.addEventListener("click", async () => {
+    const whitelist = await window.api.getWhitelist();
+    pre.textContent = JSON.stringify(whitelist);
   });
 });

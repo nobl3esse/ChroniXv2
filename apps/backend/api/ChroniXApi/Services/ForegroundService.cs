@@ -1,7 +1,5 @@
-using System.Data.Common;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Runtime.Serialization;
 
 namespace ChroniXApi.Services
 {
@@ -9,9 +7,12 @@ namespace ChroniXApi.Services
     {
         DatabaseService db = new DatabaseService();
 
+        private WhitelistService ws;
+
         //Wird automatisch bei new ForegroundService() aufgerufen
-        public ForegroundService()
+        public ForegroundService(WhitelistService whitelistService)
         {
+            ws = whitelistService;
             db.Initialize();
             processTime = db.LoadTimes();
         }
@@ -60,13 +61,19 @@ namespace ChroniXApi.Services
 
             if (processName == null) return;
 
-            if (processTime.ContainsKey(processName))
+            //Zum Debuggen
+            // Console.WriteLine($"Foreground: '{processName}', allowed: {ws.IsAllowed(processName)}");
+
+            if (ws.IsAllowed(processName))
             {
-                processTime[processName] += 5;
-            }
-            else
-            {
-                processTime[processName] = 1;
+                if (processTime.ContainsKey(processName))
+                {
+                    processTime[processName] += 5;
+                }
+                else
+                {
+                    processTime[processName] = 5;
+                }
             }
         }
 
