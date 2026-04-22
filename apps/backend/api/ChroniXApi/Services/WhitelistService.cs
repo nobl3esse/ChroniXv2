@@ -1,11 +1,10 @@
 using System.Text.Json;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace ChroniXApi.Services
 {
     public class WhitelistService
     {
-
+        //Erstellt eine neue Liste allowedProcesses und initialisiert sie
         private List<string> allowedProcesses = new List<string>();
 
         //Speichert den Pfad von Whitelist in einer konstanten Zeichenkette
@@ -21,6 +20,7 @@ namespace ChroniXApi.Services
         {
             if (!File.Exists(FilePath))
             {
+                //Wenn Datei nicht exisitiert
                 //Early return
                 return;
             }
@@ -43,24 +43,30 @@ namespace ChroniXApi.Services
 
         public void SaveWhitelist()
         {
+            //Speichert in data eine neue Instanz von WhitelistData mit der Liste Processes initialsiert mir allowedProcesses
             var data = new WhitelistData { Processes = allowedProcesses };
+            //WriteIndented bedeutet, dass die Json schön formtatiert wird mit Einrücken und Zeilenumbrüchen
             var options = new JsonSerializerOptions { WriteIndented = true };
             var jsonString = JsonSerializer.Serialize(data, options);
+            //Beim aufruf, wird die Datei erstellt oder überschrieben
             File.WriteAllText(FilePath, jsonString);
         }
 
         public bool IsAllowed(string processName)
         {
+            //Gibt true zurück wenn die liste allowedPrcoesses enthält processName
             return allowedProcesses.Contains(processName);
         }
 
         public List<string> GetAll()
         {
+            //Gibt die Liste allowedProcesses zurück
             return allowedProcesses;
         }
 
         public void Add(string processName)
         {
+            //Wenn die Liste alloedProcesses nicht den prcoessNamen enthält, füge ihn hinzu und speicher sie ab
             if (!allowedProcesses.Contains(processName))
             {
                 allowedProcesses.Add(processName);
@@ -70,6 +76,8 @@ namespace ChroniXApi.Services
 
         public void Remove(string processName)
         {
+            //Versucht processName aus der Liste zu entfernen. 
+            //Gibt true zurück wenn es drin war und entfernt wurde - dann wird gespeichert
             if (allowedProcesses.Remove(processName))
             {
                 SaveWhitelist();

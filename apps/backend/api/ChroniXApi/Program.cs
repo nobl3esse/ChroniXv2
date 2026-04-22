@@ -61,11 +61,13 @@ app.MapGet("/whitelist", () =>
 app.MapPost("/whitelist", (WhitelistInput input) =>
 {
     whitelistService.Add(input.ProcessName);
+    return whitelistService.GetAll();
 });
 
 app.MapDelete("/whitelist", (string name) =>
 {
     whitelistService.Remove(name);
+    return whitelistService.GetAll();
 });
 
 app.Run("http://localhost:5000");

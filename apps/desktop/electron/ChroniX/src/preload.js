@@ -8,4 +8,6 @@ contextBridge.exposeInMainWorld("api", {
   stopTracking: () => ipcRenderer.invoke("stop-tracking"),
   getTimes: () => ipcRenderer.invoke("get-times"),
   getWhitelist: () => ipcRenderer.invoke("get-whitelist"),
+  addWhitelist: (name) => ipcRenderer.invoke("add-whitelist", name),
+  removeWhitelist: (name) => ipcRenderer.invoke("remove-whitelist", name),
 });

@@ -73,6 +73,36 @@ ipcMain.handle("get-whitelist", async () => {
   try {
     const response = await fetch("http://localhost:5000/whitelist");
     const data = await response.json();
+    return data;
+  } catch (error) {
+    return { error: "C# API nicht erreichbar" };
+  }
+});
+
+ipcMain.handle("add-whitelist", async (event, name) => {
+  try {
+    const response = await fetch("http://localhost:5000/whitelist", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ processName: name }),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return { error: "C# API nicht erreichbar" };
+  }
+});
+
+ipcMain.handle("remove-whitelist", async (event, name) => {
+  try {
+    const response = await fetch(
+      `http://localhost:5000/whitelist?name=${name}`,
+      {
+        method: "DELETE",
+      },
+    );
+    const data = await response.json();
+    return data;
   } catch (error) {
     return { error: "C# API nicht erreichbar" };
   }
