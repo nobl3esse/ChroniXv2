@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const processes = await window.api.getProcesses();
-  console.log(processes);
+  // console.log(processes);
+  const whitelist = await window.api.getWhitelist();
+  renderWhitelist(whitelist);
 
   //Variablen
   let isTracking = false;
@@ -10,10 +12,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   const toggleTrackingBtn = document.getElementById("toggleTrackingBtn");
   const testBtn = document.getElementById("testBtn");
   const whitelistBtn = document.getElementById("whitelistBtn");
+  const addProcessBtn = document.getElementById("addProcessBtn");
 
   //Dropdowns holen
   const processDropdown = document.getElementById("processDropdown");
 
+  //Anzeigefenster holen
   const pre = document.getElementById("pre");
 
   servConBtn.addEventListener("click", async () => {
@@ -57,14 +61,52 @@ document.addEventListener("DOMContentLoaded", async () => {
     pre.textContent = result;
   });
 
-  whitelistBtn.addEventListener("click", async () => {
-    const whitelist = await window.api.getWhitelist();
-    pre.textContent = JSON.stringify(whitelist);
-  });
+  whitelistBtn.addEventListener("click", async () => {});
+
+  function renderWhitelist(items) {
+    //ul holen
+    const whitelistList = document.getElementById("whitelistList");
+    whitelistList.innerHTML = "";
+
+    items.forEach((name) => {
+      let li = document.createElement("li");
+      li.textContent = name;
+
+      let removeBtn = document.createElement("button");
+      removeBtn.textContent = "X";
+      removeBtn.addEventListener("click", async () => {
+        const result = await window.api.removeWhitelist(name);
+        if (result.success) {
+          pre.textContent = name + " wurde aus der Liste entfernt.";
+        } else {
+          pre.textContent = name + " war nicht in der Liste.";
+        }
+        renderWhitelist(result.whitelist);
+      });
+
+      li.appendChild(removeBtn);
+      whitelistList.appendChild(li);
+    });
+  }
 
   processes.forEach((name) => {
     let option = document.createElement("option");
     option.textContent = name;
+    option.value = name;
     processDropdown.appendChild(option);
+  });
+
+  addProcessBtn.addEventListener("click", async () => {
+    let name = processDropdown.value;
+    if (name == "" || name == null) return;
+
+    const result = await window.api.addWhitelist(name);
+    if (result.success) {
+      pre.textContent = name + " wurde der Liste hinzugefügt.";
+    } else {
+      pre.textContent = name + " ist bereits in der Liste.";
+    }
+    renderWhitelist(result.whitelist);
+    processDropdown.value = "";
   });
 });

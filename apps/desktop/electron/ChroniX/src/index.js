@@ -87,6 +87,7 @@ ipcMain.handle("add-whitelist", async (event, name) => {
       body: JSON.stringify({ processName: name }),
     });
     const data = await response.json();
+    // console.log("ADD response:", data);
     return data;
   } catch (error) {
     return { error: "C# API nicht erreichbar" };
@@ -102,6 +103,7 @@ ipcMain.handle("remove-whitelist", async (event, name) => {
       },
     );
     const data = await response.json();
+    // console.log("DELETE response:", data);
     return data;
   } catch (error) {
     return { error: "C# API nicht erreichbar" };

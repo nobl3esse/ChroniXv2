@@ -1,3 +1,9 @@
 {
-  "processes": ["chrome", "Code", "Discord"]
+  "Processes": [
+    "chrome",
+    "Code",
+    "Discord",
+    "claude",
+    "YouTube Music"
+  ]
 }

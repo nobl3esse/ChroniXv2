@@ -1,4 +1,3 @@
-using System.Net.WebSockets;
 using ChroniXApi.Services;
 
 var whitelistService = new WhitelistService();
@@ -30,7 +29,7 @@ app.MapGet("/processes", () =>
 
 app.MapGet("/status", () =>
 {
-    return new { success = true, message = "running " };
+    return new { success = true, message = "running" };
 });
 
 app.MapGet("/foreground", () =>
@@ -60,14 +59,14 @@ app.MapGet("/whitelist", () =>
 
 app.MapPost("/whitelist", (WhitelistInput input) =>
 {
-    whitelistService.Add(input.ProcessName);
-    return whitelistService.GetAll();
+    bool added = whitelistService.Add(input.ProcessName);
+    return new { success = added, whitelist = whitelistService.GetAll() };
 });
 
 app.MapDelete("/whitelist", (string name) =>
 {
-    whitelistService.Remove(name);
-    return whitelistService.GetAll();
+    bool removed = whitelistService.Remove(name);
+    return new { success = removed, whitelist = whitelistService.GetAll() };
 });
 
 app.Run("http://localhost:5000");

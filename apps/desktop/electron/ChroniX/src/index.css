@@ -229,7 +229,7 @@ select,
 select {
   border: 2px solid #ddd;
   background-color: #eee;
-  padding: 10px;
+  padding: 5px;
   transform: 0.4s;
 }
 
@@ -258,24 +258,8 @@ option {
 
   border: 2px solid #ddd;
   background: #eee;
-  padding: 10px;
+  padding: 5px;
   transition: 0.4s;
-}
-
-option:first-of-type {
-  border-radius: 8px 8px 0 0;
-}
-
-option:last-of-type {
-  border-radius: 0 0 8px 8px;
-}
-
-::picker(select) {
-  border-radius: 8px;
-}
-
-option:not(option:last-of-type) {
-  border-bottom: none;
 }
 
 option:first-of-type {
@@ -301,5 +285,15 @@ option:nth-of-type(odd) {
 option:hover,
 option:focus {
   background: rgb(93, 123, 221);
+}
+
+#addProcessBtn {
+  padding: 5px;
+  border: none;
+  border-radius: 8px;
+}
+
+ul {
+  list-style: none;
 }
 /* ================ SETTINGS-CONTAINER ================ */

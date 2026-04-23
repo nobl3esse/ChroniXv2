@@ -64,24 +64,26 @@ namespace ChroniXApi.Services
             return allowedProcesses;
         }
 
-        public void Add(string processName)
+        public bool Add(string processName)
         {
-            //Wenn die Liste alloedProcesses nicht den prcoessNamen enthält, füge ihn hinzu und speicher sie ab
-            if (!allowedProcesses.Contains(processName))
+            if (allowedProcesses.Contains(processName))
             {
-                allowedProcesses.Add(processName);
-                SaveWhitelist();
+                return false;
             }
+
+            allowedProcesses.Add(processName);
+            SaveWhitelist();
+            return true;
         }
 
-        public void Remove(string processName)
+        public bool Remove(string processName)
         {
-            //Versucht processName aus der Liste zu entfernen. 
-            //Gibt true zurück wenn es drin war und entfernt wurde - dann wird gespeichert
-            if (allowedProcesses.Remove(processName))
+            if (!allowedProcesses.Remove(processName))
             {
-                SaveWhitelist();
+                return false;
             }
+            SaveWhitelist();
+            return true;
         }
     }
 }
