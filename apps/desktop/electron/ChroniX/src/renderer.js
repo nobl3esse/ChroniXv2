@@ -11,6 +11,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   const testBtn = document.getElementById("testBtn");
   const whitelistBtn = document.getElementById("whitelistBtn");
 
+  //Dropdowns holen
+  const processDropdown = document.getElementById("processDropdown");
+
   const pre = document.getElementById("pre");
 
   servConBtn.addEventListener("click", async () => {
@@ -57,5 +60,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   whitelistBtn.addEventListener("click", async () => {
     const whitelist = await window.api.getWhitelist();
     pre.textContent = JSON.stringify(whitelist);
+  });
+
+  processes.forEach((name) => {
+    let option = document.createElement("option");
+    option.textContent = name;
+    processDropdown.appendChild(option);
   });
 });
