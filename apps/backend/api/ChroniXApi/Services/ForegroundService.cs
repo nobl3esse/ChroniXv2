@@ -81,5 +81,7 @@ namespace ChroniXApi.Services
         {
             return processTime;
         }
+
+        public bool IsTracking() => _timer != null;
     }
 }

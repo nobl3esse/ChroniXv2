@@ -32,6 +32,8 @@ app.MapGet("/status", () =>
     return new { success = true, message = "running" };
 });
 
+app.MapGet("/isTracking", () => new { isTracking = foregroundService.IsTracking() });
+
 app.MapGet("/foreground", () =>
 {
     return foregroundService.GetForegroundWindowProcessName();

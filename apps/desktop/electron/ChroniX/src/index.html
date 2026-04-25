@@ -14,87 +14,79 @@
     <div class="grid-container">
       <div class="custom-titlebar">
         <img src="../assets/images/ChroniX_neu_w_2.png" alt="Chronix Logo" />
-        <!-- <button
-          class="window-btn minimize"
-          type="button"
-          aria-label="Minimieren"
-        >
-          <svg class="window-icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M6 11H18V13H6V11Z" fill="currentColor" />
-          </svg>
-        </button>
-
-        <button
-          class="window-btn maximize"
-          type="button"
-          aria-label="Maximieren"
-        >
-          <svg class="window-icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M6 6H18V18H6V6ZM8 8V16H16V8H8Z" fill="currentColor" />
-          </svg>
-        </button>
-
-        <button class="window-btn close" type="button" aria-label="Schließen">
-          <svg class="window-icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path
-              d="M6.7 5.3L12 10.6L17.3 5.3L18.7 6.7L13.4 12L18.7 17.3L17.3 18.7L12 13.4L6.7 18.7L5.3 17.3L10.6 12L5.3 6.7L6.7 5.3Z"
-              fill="currentColor"
-            />
-          </svg>
-        </button> -->
       </div>
 
       <div class="menu-left">
+        <div class="tracking-header">
+          <label class="toggle">
+            <input type="checkbox" id="tracking" />
+            <span class="track"><span class="knob"></span></span>
+          </label>
+          <div class="tracking-info">
+            <span class="tracking-label">Tracking</span>
+            <span class="tracking-status" id="trackingStatus">Pausiert</span>
+          </div>
+        </div>
+
         <ul>
-          <!-- <li>
-            <button type="button">Dienststatus</button>
-          </li> -->
           <li>
-            <button id="toggleTrackingBtn" type="button">
-              Tracking an/aus
-            </button>
+            <button type="button" data-tab="times">Zeiten</button>
           </li>
           <li>
-            <button type="button">Status laden</button>
+            <button type="button" data-tab="whitelist">Whitelist</button>
           </li>
           <li>
-            <button type="button">Intervall</button>
+            <button type="button" data-tab="server">Serververbindung</button>
           </li>
           <li>
-            <button id="whitelistBtn" type="button">Whitelist</button>
-          </li>
-          <li>
-            <button type="button">AFK-Zeit</button>
-          </li>
-          <li>
-            <button id="servConBtn" type="button">Serververbindung</button>
-          </li>
-          <li>
-            <button type="button">Login/Token</button>
-          </li>
-          <li>
-            <button id="testBtn" type="button">Test Button</button>
+            <button type="button" data-tab="login">Login/Token</button>
           </li>
         </ul>
-        <pre id="pre"></pre>
       </div>
 
       <div class="settings-container">
-        <h2>SETTINGS-CONTAINER / ANZEIGEFLÄCHE</h2>
+        <h2 id="sectionTitle">Zeiten</h2>
 
-        <section id="section-whitelist">
+        <section id="section-times" class="tab-content active">
+          <ul id="timesList" class="times-list"></ul>
+          <p id="timesEmpty" class="empty-state">
+            Noch keine Zeiten getrackt. Füge Prozesse zur Whitelist hinzu und
+            starte das Tracking.
+          </p>
+          <button type="button" id="refreshTimesBtn" class="primary-btn">
+            Aktualisieren
+          </button>
+        </section>
+
+        <section id="section-whitelist" class="tab-content">
           <ul id="whitelistList"></ul>
           <label for="processDropdown"
             >Wähle einen Prozess zum Tracken aus:</label
           >
-          <div class="processFelx">
+          <div class="processFlex">
             <select name="processes" id="processDropdown">
               <option value="">--Wähle einen Prozess aus--</option>
             </select>
-            <button type="button" id="addProcessBtn">Hinzufügen</button>
+            <button type="button" id="addProcessBtn" class="primary-btn">
+              Hinzufügen
+            </button>
           </div>
+        </section>
+
+        <section id="section-server" class="tab-content">
+          <p>Status der Serververbindung:</p>
+          <div id="serverStatus" class="server-status">Wird geprüft...</div>
+          <button type="button" id="checkStatusBtn" class="primary-btn">
+            Erneut prüfen
+          </button>
+        </section>
+
+        <section id="section-login" class="tab-content">
+          <p>Login / Token-Verwaltung folgt.</p>
         </section>
       </div>
     </div>
+
+    <div id="toast-container" class="toast-container"></div>
   </body>
 </html>

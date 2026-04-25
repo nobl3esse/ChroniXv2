@@ -1,9 +1,5 @@
 {
   "Processes": [
-    "chrome",
-    "YouTube Music",
-    "Discord",
-    "electron",
-    "claude"
+    "Code"
   ]
 }

@@ -9,11 +9,17 @@ const {
 const path = require("node:path");
 const fs = require("fs");
 
+const myProcessName = path.parse(process.execPath).name;
+
 ipcMain.handle("get-processes", async () => {
   try {
     const response = await fetch("http://localhost:5000/processes");
     const data = await response.json();
-    return data;
+
+    const filtered = data.filter(
+      (name) => name.toLowerCase() !== myProcessName.toLowerCase(),
+    );
+    return filtered;
   } catch (error) {
     return { error: "C# API nicht erreichbar" };
   }
@@ -22,6 +28,16 @@ ipcMain.handle("get-processes", async () => {
 ipcMain.handle("get-status", async () => {
   try {
     const response = await fetch("http://localhost:5000/status");
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    return { error: "C# API nicht erreichbar" };
+  }
+});
+
+ipcMain.handle("get-is-tracking", async () => {
+  try {
+    const response = await fetch("http://localhost:5000/isTracking");
     const data = await response.json();
     return data;
   } catch (error) {
