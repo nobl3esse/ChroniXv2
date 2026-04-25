@@ -76,21 +76,24 @@
             <button id="testBtn" type="button">Test Button</button>
           </li>
         </ul>
+        <pre id="pre"></pre>
       </div>
 
       <div class="settings-container">
         <h2>SETTINGS-CONTAINER / ANZEIGEFLÄCHE</h2>
-        <ul id="whitelistList"></ul>
 
-        <label for="processDropdown"
-          >Wähle einen Prozess zum Tracken aus:</label
-        >
-        <select name="processes" id="processDropdown">
-          <option value="">--Wähle einen Prozess aus--</option>
-        </select>
-        <button type="button" id="addProcessBtn">Hinzufügen</button>
-
-        <pre id="pre"></pre>
+        <section id="section-whitelist">
+          <ul id="whitelistList"></ul>
+          <label for="processDropdown"
+            >Wähle einen Prozess zum Tracken aus:</label
+          >
+          <div class="processFelx">
+            <select name="processes" id="processDropdown">
+              <option value="">--Wähle einen Prozess aus--</option>
+            </select>
+            <button type="button" id="addProcessBtn">Hinzufügen</button>
+          </div>
+        </section>
       </div>
     </div>
   </body>

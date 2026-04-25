@@ -166,7 +166,7 @@ video {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 0 10px;
+  padding: 10px;
 }
 
 .menu-left ul {
@@ -211,14 +211,30 @@ video {
   border-left: 1px solid var(--active-color);
   border-top-left-radius: 12px;
   background-color: var(--background-container);
+  padding: 10px;
   height: 100%;
   width: 100%;
   min-height: 0;
 }
 
 #pre {
+  margin-top: 10px;
+  padding: 2px;
+  height: 100%;
+  width: 100%;
   background: #000;
   color: limegreen;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+#processDropdown {
+  width: 100%;
+}
+
+.processFelx {
+  display: flex;
+  gap: 5px;
 }
 
 select,
@@ -231,11 +247,12 @@ select {
   background-color: #eee;
   padding: 5px;
   transform: 0.4s;
+  cursor: pointer;
 }
 
 select:hover,
 select:focus {
-  background: #dddddd;
+  background: #ddd;
 }
 
 select::picker-icon {
@@ -291,9 +308,31 @@ option:focus {
   padding: 5px;
   border: none;
   border-radius: 8px;
+  cursor: pointer;
+}
+
+#addProcessBtn:hover {
+  background: #ddd;
 }
 
 ul {
   list-style: none;
+}
+
+ul .whitelistLi {
+  position: relative;
+  padding: 10px 10px 10px 0;
+}
+
+.removeBtn {
+  position: absolute;
+  right: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.removeBtn:hover {
+  color: #fff;
 }
 /* ================ SETTINGS-CONTAINER ================ */

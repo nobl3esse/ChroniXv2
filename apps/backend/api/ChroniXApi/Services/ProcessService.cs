@@ -7,8 +7,10 @@ namespace ChroniXApi.Services
         public string[] GetRunningProcesses()
         {
             return Process.GetProcesses()
-                          .Select(p => p.ProcessName)
-                          .ToArray();
+                .Where(p => p.MainWindowHandle != IntPtr.Zero)
+                .Select(p => p.ProcessName)
+                .Distinct()
+                .ToArray();
         }
     }
 }

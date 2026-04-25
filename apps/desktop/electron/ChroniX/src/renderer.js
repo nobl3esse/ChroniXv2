@@ -70,16 +70,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     items.forEach((name) => {
       let li = document.createElement("li");
+      li.classList = "whitelistLi";
       li.textContent = name;
 
       let removeBtn = document.createElement("button");
+      removeBtn.classList = "removeBtn";
       removeBtn.textContent = "X";
       removeBtn.addEventListener("click", async () => {
         const result = await window.api.removeWhitelist(name);
         if (result.success) {
-          pre.textContent = name + " wurde aus der Liste entfernt.";
+          pre.textContent =
+            "<System> " + name + " wurde aus der Liste entfernt.";
         } else {
-          pre.textContent = name + " war nicht in der Liste.";
+          pre.textContent = "<System> " + name + " war nicht in der Liste.";
         }
         renderWhitelist(result.whitelist);
       });
@@ -98,13 +101,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   addProcessBtn.addEventListener("click", async () => {
     let name = processDropdown.value;
-    if (name == "" || name == null) return;
+    if (name == "" || name == null) {
+      pre.textContent = "<System> Du musst einen Prozess ausgewählt haben.";
+      return;
+    }
 
     const result = await window.api.addWhitelist(name);
     if (result.success) {
-      pre.textContent = name + " wurde der Liste hinzugefügt.";
+      pre.textContent = "<System> " + name + " wurde der Liste hinzugefügt.";
     } else {
-      pre.textContent = name + " ist bereits in der Liste.";
+      pre.textContent = "<System> " + name + " ist bereits in der Liste.";
     }
     renderWhitelist(result.whitelist);
     processDropdown.value = "";
