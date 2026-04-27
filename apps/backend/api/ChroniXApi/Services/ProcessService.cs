@@ -14,7 +14,8 @@ namespace ChroniXApi.Services
             "SearchHost",
             "LockApp",
             "SearchApp",
-            "explorer"
+            "explorer",
+            "tposd"
         };
 
         public string[] GetRunningProcesses()
